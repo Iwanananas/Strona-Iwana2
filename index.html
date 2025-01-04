@@ -38,12 +38,12 @@
 </head>
 <body>
     <div class="tabs">
-        <div class="tab active" onclick="showTab('game1')">Gra 1</div>
+        <div class="tab" onclick="showTab('game1')">Gra 1</div>
         <div class="tab" onclick="showTab('game2')">Gra 2</div>
         <div class="tab" onclick="showTab('game3')">Gra 3</div>
     </div>
 
-    <div id="game1" class="content active">
+    <div id="game1" class="content">
         <iframe id="12616963" allowtransparency="true" frameborder="0" style="width:100%;border:none;" src="//www.chess.com/emboard?id=12616963"></iframe>
         <script nonce="chesscom-diagram">
             window.addEventListener("message", e => {
@@ -77,19 +77,32 @@
     </div>
 
     <script>
+        // Funkcja do przełączania zakładek
         function showTab(tabId) {
-            // Pobierz wszystkie zakładki i treści
-            const tabs = document.querySelectorAll('.tab');
-            const contents = document.querySelectorAll('.content');
+            // Ustaw nowy fragment w URL (zmiana hash)
+            window.location.hash = tabId;
 
             // Dezaktywuj wszystkie zakładki i treści
+            const tabs = document.querySelectorAll('.tab');
+            const contents = document.querySelectorAll('.content');
             tabs.forEach(tab => tab.classList.remove('active'));
             contents.forEach(content => content.classList.remove('active'));
 
-            // Aktywuj odpowiednią zakładkę i treść
+            // Aktywuj wybraną zakładkę i treść
             document.querySelector(`.tab[onclick="showTab('${tabId}')"]`).classList.add('active');
             document.getElementById(tabId).classList.add('active');
         }
+
+        // Funkcja do odczytania fragmentu URL i ustawienia aktywnej zakładki
+        window.addEventListener('load', function() {
+            const hash = window.location.hash.slice(1); // Odczytaj fragment URL (bez "#")
+            if (hash) {
+                showTab(hash);
+            } else {
+                // Jeśli nie ma fragmentu, ustaw domyślną zakładkę
+                showTab('game1');
+            }
+        });
     </script>
 </body>
 </html>
