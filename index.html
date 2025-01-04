@@ -40,6 +40,7 @@
     <div class="tabs">
         <div class="tab active" onclick="showTab('game1')">Gra 1</div>
         <div class="tab" onclick="showTab('game2')">Gra 2</div>
+        <div class="tab" onclick="showTab('game3')">Gra 3</div>
     </div>
 
     <div id="game1" class="content active">
@@ -58,6 +59,17 @@
         <script nonce="chesscom-diagram">
             window.addEventListener("message", e => {
                 if (e['data'] && "12596369" === e['data']['id'] && document.getElementById(`${e['data']['id']}`)) {
+                    document.getElementById(`${e['data']['id']}`).style.height = `${e['data']['frameHeight'] + 37}px`;
+                }
+            });
+        </script>
+    </div>
+
+    <div id="game3" class="content">
+        <iframe id="12617073" allowtransparency="true" frameborder="0" style="width:100%;border:none;" src="//www.chess.com/emboard?id=12617073"></iframe>
+        <script nonce="chesscom-diagram">
+            window.addEventListener("message", e => {
+                if (e['data'] && "12617073" === e['data']['id'] && document.getElementById(`${e['data']['id']}`)) {
                     document.getElementById(`${e['data']['id']}`).style.height = `${e['data']['frameHeight'] + 37}px`;
                 }
             });
