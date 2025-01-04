@@ -1,13 +1,81 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gra nr.1</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Strona z grami</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .tabs {
+      display: flex;
+      background-color: #f4f4f4;
+      border-bottom: 2px solid #ccc;
+    }
+    .tab {
+      padding: 10px 20px;
+      cursor: pointer;
+      border: 1px solid #ccc;
+      border-bottom: none;
+      margin-right: 5px;
+      background-color: #e7e7e7;
+    }
+    .tab.active {
+      background-color: white;
+      font-weight: bold;
+    }
+    .content {
+      display: none;
+      padding: 20px;
+    }
+    .content.active {
+      display: block;
+    }
+  </style>
 </head>
 <body>
-    <div>
-    <iframe id="12596369" allowtransparency="true" frameborder="0" style="width:100%;border:none;" src="//www.chess.com/emboard?id=12596369"></iframe><script nonce="chesscom-diagram">window.addEventListener("message",e=>{e['data']&&"12596369"===e['data']['id']&&document.getElementById(`${e['data']['id']}`)&&(document.getElementById(`${e['data']['id']}`).style.height=`${e['data']['frameHeight']+37}px`)});</script>
-</div>
+  <div class="tabs">
+    <div class="tab active" onclick="showTab('game1')">Gra 1</div>
+    <div class="tab" onclick="showTab('game2')">Gra 2</div>
+  </div>
+
+  <div id="game1" class="content active">
+    <iframe id="12616963" allowtransparency="true" frameborder="0" style="width:100%;border:none;" src="//www.chess.com/emboard?id=12616963"></iframe>
+    <script nonce="chesscom-diagram">
+      window.addEventListener("message", e => {
+        if (e['data'] && "12616963" === e['data']['id'] && document.getElementById(`${e['data']['id']}`)) {
+          document.getElementById(`${e['data']['id']}`).style.height = `${e['data']['frameHeight'] + 37}px`;
+        }
+      });
+    </script>
+  </div>
+
+  <div id="game2" class="content">
+    <iframe id="12596369" allowtransparency="true" frameborder="0" style="width: 100%; border: none; height: 480px;" src="//www.chess.com/emboard?id=12596369"></iframe>
+    <script nonce="chesscom-diagram">
+      window.addEventListener("message", e => {
+        if (e['data'] && "12596369" === e['data']['id'] && document.getElementById(`${e['data']['id']}`)) {
+          document.getElementById(`${e['data']['id']}`).style.height = `${e['data']['frameHeight'] + 37}px`;
+        }
+      });
+    </script>
+  </div>
+
+  <script>
+    function showTab(tabId) {
+      // Dezaktywuj wszystkie zakładki i treści
+      const tabs = document.querySelectorAll('.tab');
+      const contents = document.querySelectorAll('.content');
+      tabs.forEach(tab => tab.classList.remove('active'));
+      contents.forEach(content => content.classList.remove('active'));
+
+      // Aktywuj wybraną zakładkę i jej treść
+      document.querySelector(`.tab[onclick="showTab('${tabId}')"]`).classList.add('active');
+      document.getElementById(tabId).classList.add('active');
+    }
+  </script>
 </body>
 </html>
