@@ -1,108 +1,72 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
+    <link rel="manifest" href="/manifest.json">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Strona z Partiami</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-        .tabs {
-            display: flex;
-            background-color: #f4f4f4;
-            border-bottom: 2px solid #ccc;
-        }
-        .tab {
-            padding: 10px 20px;
-            cursor: pointer;
-            border: 1px solid #ccc;
-            border-bottom: none;
-            margin-right: 5px;
-            background-color: #e7e7e7;
-        }
-        .tab.active {
-            background-color: white;
-            font-weight: bold;
-        }
-        .content {
-            display: none;
-            padding: 20px;
-        }
-        .content.active {
-            display: block;
-        }
-    </style>
+    <title>Strona Iwana</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="tabs">
-        <div class="tab" onclick="showTab('game1')">Gra 1</div>
-        <div class="tab" onclick="showTab('game2')">Gra 2</div>
-        <div class="tab" onclick="showTab('game3')">Gra 3</div>
+    <div class="blok-lewy">
+        <h2>Moje partie</h2>
+        <ul>
+            <li><a href="https://iwanananas.github.io/Strona-Iwana2/#game1" target="_blank">Gra 1</a></li>
+            <li><a href="https://iwanananas.github.io/Strona-Iwana2/#game2" target="_blank">Gra 2</a></li>
+            <li><a href="https://iwanananas.github.io/Strona-Iwana2/#game3" target="_blank">Gra 3</a></li>
+            <li><a href="https://iwanananas.github.io/Strona-Iwana2/#game4" target="_blank">Gra 4</a></li> <!-- Dodany link do czwartej gry -->
+        </ul>
     </div>
+    <div class="container">
+        <h1>Witaj na mojej stronie!</h1>
+        <form id="survey-form" action="https://formspree.io/f/mjkbgyyz" method="POST">
+            <h2 class="text">Jeśli chcesz zostawić opinię o tej stronie, zrób to tutaj:</h2>
+            
+            <p>Jak oceniasz moją stronę?</p>
+            <label>
+                <input type="radio" name="rating" value="excellent" required> Doskonała
+            </label>
+            <label>
+                <input type="radio" name="rating" value="good"> Dobra
+            </label>
+            <label>
+                <input type="radio" name="rating" value="average"> Średnia
+            </label>
+            <label>
+                <input type="radio" name="rating" value="poor"> Słaba
+            </label>
+            
+            <br><br>
+            <label for="comments">Dodatkowe uwagi:</label><br>
+            <input type="text" id="comments1" rows="4" cols="50">
+            
+            <br><br>
 
-    <div id="game1" class="content">
-        <iframe id="12616963" allowtransparency="true" frameborder="0" style="width:100%;border:none;" src="//www.chess.com/emboard?id=12616963"></iframe>
-        <script nonce="chesscom-diagram">
-            window.addEventListener("message", e => {
-                if (e['data'] && "12616963" === e['data']['id'] && document.getElementById(`${e['data']['id']}`)) {
-                    document.getElementById(`${e['data']['id']}`).style.height = `${e['data']['frameHeight'] + 37}px`;
-                }
-            });
-        </script>
-    </div>
+            <br><br>
+            <input type="submit" value="Wyślij">
+        </form>
 
-    <div id="game2" class="content">
-        <iframe id="12596369" allowtransparency="true" frameborder="0" style="width:100%;border:none;" src="//www.chess.com/emboard?id=12596369"></iframe>
-        <script nonce="chesscom-diagram">
-            window.addEventListener("message", e => {
-                if (e['data'] && "12596369" === e['data']['id'] && document.getElementById(`${e['data']['id']}`)) {
-                    document.getElementById(`${e['data']['id']}`).style.height = `${e['data']['frameHeight'] + 37}px`;
-                }
-            });
-        </script>
-    </div>
-
-    <div id="game3" class="content">
-        <iframe id="12617073" allowtransparency="true" frameborder="0" style="width:100%;border:none;" src="//www.chess.com/emboard?id=12617073"></iframe>
-        <script nonce="chesscom-diagram">
-            window.addEventListener("message", e => {
-                if (e['data'] && "12617073" === e['data']['id'] && document.getElementById(`${e['data']['id']}`)) {
-                    document.getElementById(`${e['data']['id']}`).style.height = `${e['data']['frameHeight'] + 37}px`;
-                }
-            });
-        </script>
+        <div class="signature">
+            <p>Iwan Listopadski</p>
+        </div>
     </div>
 
     <script>
-        // Funkcja do przełączania zakładek
-        function showTab(tabId) {
-            // Ustaw nowy fragment w URL (zmiana hash)
-            window.location.hash = tabId;
-
-            // Dezaktywuj wszystkie zakładki i treści
-            const tabs = document.querySelectorAll('.tab');
-            const contents = document.querySelectorAll('.content');
-            tabs.forEach(tab => tab.classList.remove('active'));
-            contents.forEach(content => content.classList.remove('active'));
-
-            // Aktywuj wybraną zakładkę i treść
-            document.querySelector(`.tab[onclick="showTab('${tabId}')"]`).classList.add('active');
-            document.getElementById(tabId).classList.add('active');
-        }
-
-        // Funkcja do odczytania fragmentu URL i ustawienia aktywnej zakładki
-        window.addEventListener('load', function() {
-            const hash = window.location.hash.slice(1); // Odczytaj fragment URL (bez "#")
-            if (hash) {
-                showTab(hash);
-            } else {
-                // Jeśli nie ma fragmentu, ustaw domyślną zakładkę
-                showTab('game1');
-            }
-        });
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/service-worker.js')
+          .then(function(registration) {
+            console.log('Service Worker registered with scope:', registration.scope);
+          })
+          .catch(function(error) {
+            console.log('Service Worker registration failed:', error);
+          });
+      }
+        
+        const p5=document.getElementById("p5")
+        p5.addEventListener("click",()=> {
+           console.log(comments1.value);
+        }) 
     </script>
 </body>
 </html>
