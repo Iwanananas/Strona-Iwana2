@@ -78,13 +78,15 @@
 
     <script>
         function showTab(tabId) {
-            // Dezaktywuj wszystkie zakładki i treści
+            // Pobierz wszystkie zakładki i treści
             const tabs = document.querySelectorAll('.tab');
             const contents = document.querySelectorAll('.content');
+
+            // Dezaktywuj wszystkie zakładki i treści
             tabs.forEach(tab => tab.classList.remove('active'));
             contents.forEach(content => content.classList.remove('active'));
 
-            // Aktywuj wybraną zakładkę i jej treść
+            // Aktywuj odpowiednią zakładkę i treść
             document.querySelector(`.tab[onclick="showTab('${tabId}')"]`).classList.add('active');
             document.getElementById(tabId).classList.add('active');
         }
